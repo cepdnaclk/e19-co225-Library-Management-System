@@ -10,7 +10,6 @@ import android.widget.Toast;
 import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -18,16 +17,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.android.gms.tasks.OnFailureListener;
 
-
-
-
-
 public class ADD_BOOK extends AppCompatActivity {
 
     Button bookAddButton;
     EditText bookNameInput;
     EditText bookIDInput;
     EditText bookAuthorInput;
+
+    EditText bookCopiesInput;
     private DatabaseReference databaseReference;
 
     @Override
@@ -39,6 +36,7 @@ public class ADD_BOOK extends AppCompatActivity {
         bookNameInput = findViewById(R.id.bookNameInput);
         bookIDInput = findViewById(R.id.bookIDInput);
         bookAuthorInput = findViewById(R.id.bookAuthorInput);
+        bookCopiesInput = findViewById(R.id.bookCopiesInput);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("BOOKS");
 
         bookAddButton.setOnClickListener(new View.OnClickListener() {
@@ -47,13 +45,18 @@ public class ADD_BOOK extends AppCompatActivity {
                 String bookName = bookNameInput.getText().toString();
                 String bookID = bookIDInput.getText().toString();
                 String bookAuthor = bookAuthorInput.getText().toString();
+                String bookCopiesString = bookCopiesInput.getText().toString();
+
+                // Convert the bookCopiesString to an Integer
+                int bookCopies = Integer.parseInt(bookCopiesString);
 
                 // Create a HashMap to hold the book details
-                ArrayList bookDetails = new ArrayList();
-                bookDetails.add(bookID);
-                bookDetails.add(bookName);
-                bookDetails.add(bookAuthor);
-                //-------------------------------------------------------------
+                HashMap<String, Object> bookDetails = new HashMap<>();
+                bookDetails.put("id", bookID);
+                bookDetails.put("name", bookName);
+                bookDetails.put("author", bookAuthor);
+                bookDetails.put("copies", bookCopies);
+                
 
                 databaseReference.child(bookID).setValue(bookDetails)
 
