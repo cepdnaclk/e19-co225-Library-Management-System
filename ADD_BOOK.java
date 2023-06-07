@@ -1,18 +1,25 @@
 package com.example.librarymanagementsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.support.annotation.NonNull;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.android.gms.tasks.OnFailureListener;
+
+
+
 
 
 public class ADD_BOOK extends AppCompatActivity {
@@ -32,7 +39,7 @@ public class ADD_BOOK extends AppCompatActivity {
         bookNameInput = findViewById(R.id.bookNameInput);
         bookIDInput = findViewById(R.id.bookIDInput);
         bookAuthorInput = findViewById(R.id.bookAuthorInput);
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("BOOKS");
 
         bookAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +48,15 @@ public class ADD_BOOK extends AppCompatActivity {
                 String bookID = bookIDInput.getText().toString();
                 String bookAuthor = bookAuthorInput.getText().toString();
 
-                databaseReference.child(bookID).setValue(bookName)
+                // Create a HashMap to hold the book details
+                ArrayList bookDetails = new ArrayList();
+                bookDetails.add(bookID);
+                bookDetails.add(bookName);
+                bookDetails.add(bookAuthor);
+                //-------------------------------------------------------------
+
+                databaseReference.child(bookID).setValue(bookDetails)
+
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
 
                             public void onSuccess(Void aVoid) {
