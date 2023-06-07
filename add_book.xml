@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="245dp"
         android:text="Book ID :"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="381dp"
+        android:layout_marginTop="374dp"
         android:layout_marginEnd="340dp"
         android:layout_marginBottom="328dp"
         android:text="Author :"
@@ -60,12 +60,12 @@
         android:id="@+id/bookAddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="149dp"
-        android:layout_marginTop="508dp"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="632dp"
         android:layout_marginEnd="175dp"
         android:text="ADD"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
@@ -88,10 +88,10 @@
 
     <EditText
         android:id="@+id/bookIDInput"
-        android:layout_width="387dp"
-        android:layout_height="50dp"
+        android:layout_width="397dp"
+        android:layout_height="51dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="274dp"
+        android:layout_marginTop="269dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="407dp"
         android:ems="10"
@@ -103,10 +103,10 @@
 
     <EditText
         android:id="@+id/bookAuthorInput"
-        android:layout_width="388dp"
-        android:layout_height="40dp"
+        android:layout_width="397dp"
+        android:layout_height="43dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="416dp"
+        android:layout_marginTop="407dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="275dp"
         android:ems="10"
@@ -132,5 +132,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="47dp"
+        android:layout_marginEnd="280dp"
+        android:layout_marginBottom="203dp"
+        android:text="Number of copies :"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bookAuthorInput"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/bookCopiesInput"
+        android:layout_width="396dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-6dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="46dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/bookAddButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
