@@ -28,6 +28,14 @@
         android:label="@string/title_requested_books"
         tools:layout="@layout/fragment_requested_books" />
     <fragment
+<<<<<<< HEAD
+=======
+        android:id="@+id/staff"
+        android:name="com.example.lmsapplication.ui.staff.StaffFragment"
+        android:label="@string/title_staff"
+        tools:layout="@layout/fragment_staff" />
+    <fragment
+>>>>>>> main
         android:id="@+id/my_account"
         android:name="com.example.lmsapplication.ui.user.UserFragment"
         android:label="@string/title_user"
