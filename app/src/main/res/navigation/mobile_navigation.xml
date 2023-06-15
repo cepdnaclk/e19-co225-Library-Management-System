@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.lmsapplication.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/books"
+        android:name="com.example.lmsapplication.ui.books.BooksFragment"
+        android:label="@string/title_books"
+        tools:layout="@layout/fragment_books" />
+
+    <fragment
+        android:id="@+id/issued_books"
+        android:name="com.example.lmsapplication.ui.issuedBooks.IssuedBooksFragment"
+        android:label="@string/title_issued_books"
+        tools:layout="@layout/fragment_issued_books" />
+    <fragment
+        android:id="@+id/requested_books"
+        android:name="com.example.lmsapplication.ui.requestedBooks.RequestedBooksFragment"
+        android:label="@string/title_requested_books"
+        tools:layout="@layout/fragment_requested_books" />
+    <fragment
+        android:id="@+id/staff"
+        android:name="com.example.lmsapplication.ui.staff.StaffFragment"
+        android:label="@string/title_staff"
+        tools:layout="@layout/fragment_staff" />
+    <fragment
+        android:id="@+id/my_account"
+        android:name="com.example.lmsapplication.ui.user.UserFragment"
+        android:label="@string/title_user"
+        tools:layout="@layout/fragment_user" />
+</navigation>
