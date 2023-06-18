@@ -1,46 +1,47 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- Add your UI components for the HomeFragment layout here -->
-
     <TextView
-        android:id="@+id/textHome"
+        android:id="@+id/text_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_margin="16dp" />
+        android:text="Home Fragment" />
 
     <LinearLayout
         android:id="@+id/userDetailsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
+        android:orientation="horizontal"
         android:visibility="gone">
 
-        <!-- Add your UI components for the user details tile here -->
         <Button
             android:id="@+id/userDetailsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="160dp"
+            android:layout_height="80dp"
             android:text="User Details" />
 
         <Button
             android:id="@+id/staffDetailsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="160dp"
+            android:layout_height="80dp"
             android:text="Staff Details" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/borrowedBooksCount"
+    <Button
+        android:id="@+id/acceptBookRequestButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_margin="16dp" />
+        android:text="Accept Book Request"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/acceptBookReturnsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accept Book Returns"
+        android:visibility="gone" />
 
 </LinearLayout>
