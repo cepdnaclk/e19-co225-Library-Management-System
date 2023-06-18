@@ -1,14 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".ui.books.BooksFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Book Fragment" />
+    <LinearLayout
+        android:layout_width="460dp"
+        android:layout_height="703dp"
+        android:orientation="vertical"
+        android:padding="5dp">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/button_tile1"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/purpink"
+            android:backgroundTintMode="add"
+            android:paddingTop="58dp"
+            android:text="SEARCH BOOKS"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/button_tile2"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/purpink"
+            android:backgroundTintMode="add"
+            android:paddingTop="58dp"
+            android:text="BOOK LIST"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/button_tile3"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/wiretap"
+            android:backgroundTintMode="add"
+            android:paddingTop="58dp"
+            android:text="ADD BOOKS"
+            android:textAlignment="center"
+            android:textColor="#131010"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+</LinearLayout>

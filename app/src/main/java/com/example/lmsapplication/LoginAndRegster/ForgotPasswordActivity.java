@@ -1,19 +1,17 @@
 package com.example.lmsapplication.LoginAndRegster;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.lmsapplication.FirebaseManager;
 import com.example.lmsapplication.MainActivity;
 import com.example.lmsapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,7 +34,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }*/
 
-        email = findViewById(R.id.emailForgotPw);
+        email = findViewById(R.id.emailLogin);
         //ProgressBar progressBar = findViewById(R.id.progressBarReset);
         resetBt = findViewById(R.id.resetPwBt);
         resetBt.setOnClickListener(new View.OnClickListener() {
@@ -58,8 +56,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void resetPassword(String email) {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+        FirebaseManager firebaseManager = FirebaseManager.getInstance();
+        firebaseManager.getAuth().sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){

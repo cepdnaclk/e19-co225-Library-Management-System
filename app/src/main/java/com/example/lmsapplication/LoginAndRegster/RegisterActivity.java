@@ -15,6 +15,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.lmsapplication.FirebaseManager;
 import com.example.lmsapplication.MainActivity;
 import com.example.lmsapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -133,48 +134,52 @@ public class RegisterActivity extends AppCompatActivity {
                     name.requestFocus();
                 }else if(TextUtils.isEmpty(txtEmail)){
                     Toast.makeText(RegisterActivity.this,"Please Enter Email ",Toast.LENGTH_LONG).show();
-                    name.setError("Full Name is Required");
-                    name.requestFocus();
+                    email.setError("Email is Required");
+                    email.requestFocus();
                 }else if(!Patterns.EMAIL_ADDRESS.matcher(txtEmail).matches()){
                     Toast.makeText(RegisterActivity.this,"Please Re-Enter Enter Email ",Toast.LENGTH_LONG).show();
-                    name.setError("Valid Email is Required");
-                    name.requestFocus();
+                    email.setError("Valid Email is Required");
+                    email.requestFocus();
                 }else if(TextUtils.isEmpty(txtNIC)){
                     Toast.makeText(RegisterActivity.this,"Please Enter NIC ",Toast.LENGTH_LONG).show();
-                    name.setError("NIC is Required");
-                    name.requestFocus();
+                    nic.setError("NIC is Required");
+                    nic.requestFocus();
                 }else if(TextUtils.isEmpty(txtAddress)){
                     Toast.makeText(RegisterActivity.this,"Please Enter Address ",Toast.LENGTH_LONG).show();
-                    name.setError("Address is Required");
-                    name.requestFocus();
+                    address.setError("Address is Required");
+                    address.requestFocus();
                 }else if(TextUtils.isEmpty(txtBirthday)){
                     Toast.makeText(RegisterActivity.this,"Please Enter Birth day ",Toast.LENGTH_LONG).show();
-                    name.setError("Birth day is Required");
-                    name.requestFocus();
+                    birthday.setError("Birth day is Required");
+                    birthday.requestFocus();
                 }else if(TextUtils.isEmpty(txtPwd)){
                     Toast.makeText(RegisterActivity.this,"Please Enter Password ",Toast.LENGTH_LONG).show();
-                    name.setError("Password is Required");
-                    name.requestFocus();
+                    pwd.setError("Password is Required");
+                    pwd.requestFocus();
+                }else if(txtPwd.length()<8){
+                    Toast.makeText(RegisterActivity.this,"Password must contain at least 8 characters",Toast.LENGTH_LONG).show();
+                    pwd.setError("Password must contain at least 8 characters");
+                    pwd.requestFocus();
                 }else if(TextUtils.isEmpty(txtConfirmPwd)){
                     Toast.makeText(RegisterActivity.this,"Please Confirm Your Password ",Toast.LENGTH_LONG).show();
-                    name.setError("Password Confirmation is Required");
-                    name.requestFocus();
+                    confirmPwd.setError("Password Confirmation is Required");
+                    confirmPwd.requestFocus();
                 }else if(!txtPwd.equals(txtConfirmPwd)){
                     Toast.makeText(RegisterActivity.this,"Please Enter Same Password ",Toast.LENGTH_LONG).show();
-                    name.setError("Password Confirmation is Required");
-                    name.requestFocus();
+                    pwd.setError("Password Confirmation is Required");
+                    pwd.requestFocus();
                     //Clear the passwords
                     pwd.clearComposingText();
                     confirmPwd.clearComposingText();
                 }else if(TextUtils.isEmpty(txtmobileNum)){
                     Toast.makeText(RegisterActivity.this,"Please Enter Mobile Number ",Toast.LENGTH_LONG).show();
-                    name.setError("Mobile Number is Required");
-                    name.requestFocus();
+                    mobileNum.setError("Mobile Number is Required");
+                    mobileNum.requestFocus();
 
                 }else if(txtmobileNum.length()<10){
                     Toast.makeText(RegisterActivity.this,"Please Enter Valid Mobile Number ",Toast.LENGTH_LONG).show();
-                    name.setError("Valid Mobile Number is Required");
-                    name.requestFocus();
+                    mobileNum.setError("Valid Mobile Number is Required");
+                    mobileNum.requestFocus();
                 }else {
 
                     txtGender= genderSelect.getText().toString();
@@ -189,28 +194,32 @@ public class RegisterActivity extends AppCompatActivity {
     }
     //Register User using the credentials given
     private void registerUser(String txtfullName, String txtEmail, String txtNIC, String txtAddress, String txtBirthday, String txtmobileNum, String txtGender, String txtPwd) {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.createUserWithEmailAndPassword(txtEmail, txtPwd).addOnCompleteListener(RegisterActivity.this,
+        FirebaseManager firebaseManager = FirebaseManager.getInstance();
+        firebaseManager.getAuth().createUserWithEmailAndPassword(txtEmail, txtPwd).addOnCompleteListener(RegisterActivity.this,
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            String userId = auth.getCurrentUser().getUid();
+                            String userId = firebaseManager.getCurrentUser().getUid();
                             //Store user Detils in the database
-                            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
-                            User newUser = new User(txtfullName, txtEmail, txtAddress, txtBirthday, txtNIC, txtGender, txtmobileNum,"user");
+                            User newUser = new User(txtfullName, txtEmail, txtNIC, txtAddress, txtBirthday, txtmobileNum, txtGender);
 
-                            usersRef.child(userId).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            firebaseManager.getDataRef("User").child(userId).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(RegisterActivity.this, "User registration successful", Toast.LENGTH_SHORT).show();
+                                        // Navigate back to the previous activity
+                                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+
                                     } else {
                                         Toast.makeText(RegisterActivity.this, "Failed to store user details in the database", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
-                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            FirebaseUser firebaseUser = firebaseManager.getCurrentUser();
                             //Send verification Email
                             firebaseUser.sendEmailVerification();
 
@@ -219,7 +228,7 @@ public class RegisterActivity extends AppCompatActivity {
                             String errorMessage = task.getException().getMessage();
                             Log.e("RegistrationError", errorMessage);
                             Toast.makeText(RegisterActivity.this, "User registration failed Try again!", Toast.LENGTH_SHORT).show();
-                            //
+                            progressBarSignUp.setVisibility(View.GONE);
                         }
 
                     }
@@ -235,12 +244,12 @@ public class RegisterActivity extends AppCompatActivity {
         private String mobNum;
         private String gender;
 
-        private String userType;
+
 
         public User() {
             // Required empty constructor for Firebase
         }
-        public User(String name, String email,String nic,String address,String birthday,String mobNum,String gender,String userType) {
+        public User(String name, String email,String nic,String address,String birthday,String mobNum,String gender) {
             this.name = name;
             this.email = email;
             this.nic =nic;
@@ -248,7 +257,6 @@ public class RegisterActivity extends AppCompatActivity {
             this.birthday=birthday;
             this.mobNum=mobNum;
             this.gender=gender;
-            this.userType=userType;
         }
 
 
@@ -313,7 +321,6 @@ public class RegisterActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         // Navigate back to the previous activity
-        // You can replace MainActivity.class with the desired activity class
         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
