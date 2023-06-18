@@ -13,6 +13,23 @@
         android:theme="@style/Theme.LMSApplication"
         tools:targetApi="31">
         <activity
+            android:name=".ui.home.individualStaffDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.staffDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.IndividualDetailsActivityN"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/activity_individual_details_n" />
+
+        <activity
+            android:name=".ui.home.UserDetails"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
