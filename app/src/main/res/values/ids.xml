@@ -15,4 +15,6 @@
     <item name="rmale" type="id" />
     <item name="rfemale" type="id" />
     <item name="rother" type="id" />
+    <item name="userDetailsTitle" type="id" />
+    <item name="userTableLayout" type="id" />
 </resources>
