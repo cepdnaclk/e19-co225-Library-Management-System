@@ -70,7 +70,7 @@ public class BOOK_SEARCH extends AppCompatActivity {
     private void displayBookData(DataSnapshot dataSnapshot) {
         Toast.makeText(BOOK_SEARCH.this, "Successfully Read", Toast.LENGTH_SHORT).show();
         String author = String.valueOf(dataSnapshot.child("author").getValue());
-        int copy = dataSnapshot.child("copies").getValue(Integer.class);
+        int copy = dataSnapshot.child("numberOfCopies").getValue(Integer.class);
         String id = String.valueOf(dataSnapshot.child("id").getValue());
         String name = String.valueOf(dataSnapshot.child("name").getValue());
         binding.tvAuthor.setText(author);

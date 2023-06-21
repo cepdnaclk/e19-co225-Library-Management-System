@@ -34,6 +34,27 @@
             android:name=".LoginAndRegster.LoginActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.requestedBooks.ReservationPart"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.staffDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.AcceptRequestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.AcceptReturnsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.IndividualDetailsActivityN"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.individualStaffDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.UserDetails"
+            android:exported="false" />
+        <activity
 
             android:name=".MainActivity"
             android:exported="true"
