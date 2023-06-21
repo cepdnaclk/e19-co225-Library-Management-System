@@ -1,66 +1,106 @@
 package com.example.lmsapplication.ui.books;
 
-import android.os.Bundle;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.lmsapplication.FirebaseManager;
+import com.example.lmsapplication.LoginAndRegster.LoginActivity;
 import com.example.lmsapplication.R;
+import com.example.lmsapplication.databinding.FragmentBooksBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BooksFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class BooksFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private BooksViewModel mViewModel;
+    private FragmentBooksBinding binding;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public BooksFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BooksFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BooksFragment newInstance(String param1, String param2) {
-        BooksFragment fragment = new BooksFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static BooksFragment newInstance() {
+        return new BooksFragment();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        BooksViewModel booksViewModel = new ViewModelProvider(this).get(BooksViewModel.class);
+        binding = FragmentBooksBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        //final TextView textView = binding.textBooks;
+        //booksViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
+        // Get references to the buttons
+        TextView buttonTile1 = binding.buttonTile1;
+        TextView buttonTile2 = binding.buttonTile2;
+        TextView buttonTile3 = binding.buttonTile3;
+
+        //Check the user isAdmin
+        FirebaseManager firebaseManager = FirebaseManager.getInstance();
+
+        firebaseManager.isAdminUser().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                boolean isAdminUser = task.getResult();
+                if (isAdminUser) {
+                    buttonTile3.setVisibility(View.VISIBLE);
+                    Toast.makeText(getActivity(),"Admin abilities activated!",Toast.LENGTH_LONG).show();
+                } else {
+                }
+            } else {
+                // Error occurred while checking the user's admin status
+                Exception exception = task.getException();
+                Log.e("Firebase", "Exception occurred", exception);
+                Toast.makeText(getActivity(),"Something Went Wrong!",Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        // Set click listeners for the buttons
+        buttonTile1.setOnClickListener(v -> {
+            // Start a new activity or perform an action for Tile 1
+            Intent intent = new Intent(getActivity(), BOOK_SEARCH.class);
+            startActivity(intent);
+        });
+
+        buttonTile2.setOnClickListener(v -> {
+            // Start a new activity or perform an action for Tile 2
+            Intent intent = new Intent(getActivity(), STAFF_BOOK_RETURN_UPDATE.class );
+            startActivity(intent);
+        });
+
+        buttonTile3.setOnClickListener(v -> {
+            // Start a new activity or perform an action for Tile 3
+            Intent intent = new Intent(getActivity(), ADD_BOOK.class);
+            startActivity(intent);
+        });
+
+        return root;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_books, container, false);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(BooksViewModel.class);
+        // TODO: Use the ViewModel
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

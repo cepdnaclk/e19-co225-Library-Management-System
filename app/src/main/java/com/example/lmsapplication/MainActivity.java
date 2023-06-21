@@ -1,11 +1,16 @@
 package com.example.lmsapplication;
 
+
+import android.os.Bundle;
+
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.lmsapplication.LoginAndRegster.LoginActivity;
 import com.example.lmsapplication.databinding.ActivityMainBinding;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         BottomNavigationView naviView = findViewById(R.id.nav_view);
 
 
@@ -41,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             // Passing each menu ID as a set of Ids because each
             // menu should be considered as top level destinations.
             AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                    R.id.navigation_home,R.id.issued_books,R.id.requested_books,R.id.requested_books,R.id.staff,R.id.my_account)
+                    R.id.navigation_home,R.id.issued_books,R.id.requested_books,R.id.books,R.id.staff,R.id.my_account)
                     .build();
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
             NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -53,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
 
     }
 

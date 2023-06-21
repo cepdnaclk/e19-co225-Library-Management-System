@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lmsapplication.FirebaseManager;
 import com.example.lmsapplication.MainActivity;
 import com.example.lmsapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,7 +27,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity {
-    FirebaseAuth auth;
     private static final String PREF_NAME = "LoginPrefs";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
@@ -40,9 +40,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        auth = FirebaseAuth.getInstance();
 
-        EditText inpEmail = (EditText) findViewById(R.id.emailForgotPw);
+
+
+        EditText inpEmail = (EditText) findViewById(R.id.emailLogin);
         EditText inpPassword = (EditText) findViewById(R.id.pwdLogin);
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
         TextView forgotPw = (TextView)findViewById(R.id.forgotpwBt);
@@ -88,14 +89,14 @@ public class LoginActivity extends AppCompatActivity {
                 String txtPwd = inpPassword.getText().toString();
 
                 if (TextUtils.isEmpty(txtEmail)){
-                    Toast.makeText(LoginActivity.this,"Please Enter Your Email",Toast.LENGTH_LONG);
+                    Toast.makeText(LoginActivity.this,"Please Enter Your Email",Toast.LENGTH_LONG).show();
                     inpEmail.setError("Email is Required");
                     inpEmail.requestFocus();
 
                 }else if (TextUtils.isEmpty(txtPwd)){
-                    Toast.makeText(LoginActivity.this,"Please Enter Your Password",Toast.LENGTH_LONG);
-                    inpEmail.setError("Password is Required");
-                    inpEmail.requestFocus();
+                    Toast.makeText(LoginActivity.this,"Please Enter Your Password",Toast.LENGTH_LONG).show();
+                    inpPassword.setError("Password is Required");
+                    inpPassword.requestFocus();
                 }else {
                     progressBar.setVisibility(View.VISIBLE);
                     loginUser(txtEmail, txtPwd, new LoginCallback() {
@@ -109,6 +110,9 @@ public class LoginActivity extends AppCompatActivity {
                                 clearLoginPrefs();
                             }
 
+
+
+                            //Load Main Activity
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.putExtra("loginStatus", true); // Pass the login status as a boolean value
                             startActivity(intent);
@@ -117,16 +121,12 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onLoginFailure() {
-
-                            //For Test Runs ///////////////////////////////
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra("loginStatus", true);
-                            startActivity(intent);
-                            finish();
-                            /////////////////////////////////////////////
-                            //Toast.makeText(LoginActivity.this,"Something Went Wrong",Toast.LENGTH_LONG).show();
-                            Toast.makeText(LoginActivity.this,"You Are Logged In",Toast.LENGTH_LONG).show();
-                        }
+                            Toast.makeText(LoginActivity.this,"Login Failed!",Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
+                            inpEmail.clearComposingText();
+                            inpPassword.clearComposingText();
+                            inpEmail.setError("Invalid Login, Please Try Again!");
+                            }
                     });
                 }
             }
@@ -155,8 +155,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String txtEmail, String txtPwd,LoginCallback callback) {
-
-        auth.signInWithEmailAndPassword(txtEmail,txtPwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        FirebaseManager firebaseManager = FirebaseManager.getInstance();
+        firebaseManager.getAuth().signInWithEmailAndPassword(txtEmail,txtPwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
