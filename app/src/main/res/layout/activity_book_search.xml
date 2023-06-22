@@ -161,8 +161,26 @@
             android:layout_toRightOf="@id/copiesText"/>
 
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
+        <Button
+            android:id="@+id/ReservedBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Reserved Now!"
+            android:visibility="invisible"/>
 
+        <Button
+            android:id="@+id/RequestBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Request Now!"
+            android:visibility="invisible"/>
 
-
+    </RelativeLayout>
 </LinearLayout>
