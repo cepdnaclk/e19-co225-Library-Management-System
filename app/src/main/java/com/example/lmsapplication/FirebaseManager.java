@@ -27,8 +27,9 @@ public class FirebaseManager {
     public FirebaseUser getCurrentUser() {
         return auth.getCurrentUser();
 
-        /*FirebaseManager firebaseManager = FirebaseManager.getInstance();
-        String uid=firebaseManager.getCurrentUser().getEmail().toString();*/
+//        FirebaseManager firebaseManager = FirebaseManager.getInstance();
+//        String uid=firebaseManager.getCurrentUser().getEmail().toString();
+
     }
 
     public static synchronized FirebaseManager getInstance() {

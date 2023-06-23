@@ -28,6 +28,7 @@ public class BOOK_SEARCH extends AppCompatActivity {
 
     Button requestBtn, reservedBtn;
     String name, id;
+    int copy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,14 +82,13 @@ public class BOOK_SEARCH extends AppCompatActivity {
 
     private void displayBookData(DataSnapshot dataSnapshot) {
         String author = String.valueOf(dataSnapshot.child("author").getValue());
-        int copy = dataSnapshot.child("numberOfCopies").getValue(Integer.class);
+        copy = dataSnapshot.child("numberOfCopies").getValue(Integer.class);
         id = String.valueOf(dataSnapshot.child("id").getValue());
         name = String.valueOf(dataSnapshot.child("name").getValue());
         binding.tvAuthor.setText(author);
         binding.tvCopies.setText(String.valueOf(copy));
         binding.tvId.setText(id);
         binding.tvName.setText(name);
-        copy=0;
         if (copy>0){
             Log.i("displayBookData: ",String.valueOf(copy));
             reservedBtn = findViewById(R.id.ReservedBtn);
@@ -107,6 +107,10 @@ public class BOOK_SEARCH extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BOOK_SEARCH.this, ReservationPart.class);
+                intent.putExtra("BookName",name);
+                intent.putExtra("BookID",id);
+                String number = copy + "";
+                intent.putExtra("noOfCopies",number);
                 startActivity(intent);
             }
         });
@@ -120,16 +124,14 @@ public class BOOK_SEARCH extends AppCompatActivity {
                 FirebaseManager firebaseManager = FirebaseManager.getInstance();
                 String userEmail =firebaseManager.getCurrentUser().getEmail().toString().substring(0,6);
 
-                // Create a HashMap to hold the book details
-                HashMap<String, Object> bookDetails = new HashMap<>();
-                bookDetails.put("Book-Name", name);
-                bookDetails.put("BookID", id);
-                bookDetails.put("Mail", userEmail);
+                // Create a HashMap to hold the requested book details
+                HashMap<String, Object> requestBookDetails = new HashMap<>();
+                requestBookDetails.put("Book-Name", name);
+                requestBookDetails.put("BookID", id);
+                requestBookDetails.put("Mail", userEmail);
 
-                requestBookRef.child(userEmail).setValue(bookDetails);
+                requestBookRef.child(userEmail).setValue(requestBookDetails);
 
-
-                Log.i("onClick: ",id);
             }
         });
     }
