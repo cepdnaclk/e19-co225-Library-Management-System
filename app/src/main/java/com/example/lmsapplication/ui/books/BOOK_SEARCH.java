@@ -1,21 +1,34 @@
 package com.example.lmsapplication.ui.books;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.lmsapplication.FirebaseManager;
+import com.example.lmsapplication.R;
 import com.example.lmsapplication.databinding.ActivityBookSearchBinding;
+import com.example.lmsapplication.ui.requestedBooks.ReservationPart;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 
 public class BOOK_SEARCH extends AppCompatActivity {
 
     ActivityBookSearchBinding binding;
-    DatabaseReference reference;
+    DatabaseReference reference, requestBookRef;
+
+    Button requestBtn, reservedBtn;
+    String name, id;
+    int copy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,15 +81,60 @@ public class BOOK_SEARCH extends AppCompatActivity {
     }
 
     private void displayBookData(DataSnapshot dataSnapshot) {
-        Toast.makeText(BOOK_SEARCH.this, "Successfully Read", Toast.LENGTH_SHORT).show();
         String author = String.valueOf(dataSnapshot.child("author").getValue());
-        int copy = dataSnapshot.child("numberOfCopies").getValue(Integer.class);
-        String id = String.valueOf(dataSnapshot.child("id").getValue());
-        String name = String.valueOf(dataSnapshot.child("name").getValue());
+        copy = dataSnapshot.child("numberOfCopies").getValue(Integer.class);
+        id = String.valueOf(dataSnapshot.child("id").getValue());
+        name = String.valueOf(dataSnapshot.child("name").getValue());
         binding.tvAuthor.setText(author);
         binding.tvCopies.setText(String.valueOf(copy));
         binding.tvId.setText(id);
         binding.tvName.setText(name);
+        if (copy>0){
+            Log.i("displayBookData: ",String.valueOf(copy));
+            reservedBtn = findViewById(R.id.ReservedBtn);
+            reservedBtn.setVisibility(View.VISIBLE);
+            reservedBtnClk(reservedBtn);
+        }
+        else {
+            requestBtn = findViewById(R.id.RequestBtn);
+            requestBtn.setVisibility(View.VISIBLE);
+            requestBtnClk(requestBtn);
+        }
+    }
+
+    private void reservedBtnClk(Button btn){
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BOOK_SEARCH.this, ReservationPart.class);
+                intent.putExtra("BookName",name);
+                intent.putExtra("BookID",id);
+                String number = copy + "";
+                intent.putExtra("noOfCopies",number);
+                startActivity(intent);
+            }
+        });
+    }
+    private void requestBtnClk(Button btn){
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestBookRef = FirebaseDatabase.getInstance().getReference().child("RequestedBooks");
+
+                FirebaseManager firebaseManager = FirebaseManager.getInstance();
+                String userEmail =firebaseManager.getCurrentUser().getEmail().toString().substring(0,6);
+
+                // Create a HashMap to hold the requested book details
+                HashMap<String, Object> requestBookDetails = new HashMap<>();
+                requestBookDetails.put("Book-Name", name);
+                requestBookDetails.put("BookID", id);
+                requestBookDetails.put("Mail", userEmail);
+
+                requestBookRef.child(userEmail).setValue(requestBookDetails);
+
+            }
+        });
     }
 
 }
+

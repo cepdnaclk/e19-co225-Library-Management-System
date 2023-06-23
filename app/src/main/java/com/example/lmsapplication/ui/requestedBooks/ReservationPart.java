@@ -9,13 +9,21 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.lmsapplication.FirebaseManager;
 import com.example.lmsapplication.HomeActivity;
 import com.example.lmsapplication.MainActivity;
 import com.example.lmsapplication.R;
+import com.example.lmsapplication.ui.books.BOOK_SEARCH;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 
 public class ReservationPart extends AppCompatActivity {
@@ -25,9 +33,10 @@ public class ReservationPart extends AppCompatActivity {
     CalendarView calendar;
     TextView date_view;
     Button cancelBtn, proceedBtn ;
-    String Book_name;
     DatabaseReference ReservedBookRef, BookLibraryRef;
-    String Date;
+    String Date,Book_id;
+    int numberOfCopies;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -46,8 +55,6 @@ public class ReservationPart extends AppCompatActivity {
                 findViewById(R.id.proceed);
         cancelBtn =
                 findViewById(R.id.cancel);
-        ReservedBookRef = FirebaseDatabase.getInstance().getReference().child("ReservedBooks");
-        BookLibraryRef = FirebaseDatabase.getInstance().getReference().child("BOOKS");
 
         // Add Listener in calendar
         calendar
@@ -84,6 +91,7 @@ public class ReservationPart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 insertDataToReservedBooks();
+                updateBookCount();
                 openHomeActivity();
             }
         });
@@ -103,16 +111,59 @@ public class ReservationPart extends AppCompatActivity {
         startActivity(newIntent);
     }
     private void insertDataToReservedBooks() {
-        Book_name = getIntent().getStringExtra("bookName");
-        String key = Book_name;
-        ReservedBookRef.child(key).setValue(Book_name, Date);
+
+        FirebaseManager firebaseManager = FirebaseManager.getInstance();
+        String userEmail =firebaseManager.getCurrentUser().getEmail().toString().substring(0,6);
+
+        ReservedBookRef = FirebaseDatabase.getInstance().getReference().child("ReservedBooks");
+
+        String Book_name = getIntent().getStringExtra("BookName");
+        Book_id = getIntent().getStringExtra("BookID");
+
+        // Create a HashMap to hold the reserved book details
+        HashMap<String, Object> reservedBookDetails = new HashMap<>();
+        reservedBookDetails.put("User-ID", userEmail);
+        reservedBookDetails.put("Book-Name", Book_name);
+        reservedBookDetails.put("BookID", Book_id);
+        reservedBookDetails.put("Reserving Date", Date);
+
+        ReservedBookRef.child(userEmail).setValue(reservedBookDetails);
+
         Toast.makeText(ReservationPart.this, "Reservation is success", Toast.LENGTH_LONG).show();
     }
 
-    private void updateBookCount(){
-        int numberOfCopies = Integer.valueOf(getIntent().getStringExtra("numberOfCopies"));
+    public int updateBookCount(){
+        String Number = getIntent().getStringExtra("noOfCopies");
+        numberOfCopies = Integer.parseInt(Number);
         numberOfCopies--;
-        Log.i("updateBookCount: ",numberOfCopies+"");
     }
+
+
+   private void queryBookByName(String bookName) {
+
+       // Get a reference to the database
+       BookLibraryRef = FirebaseDatabase.getInstance().getReference().child("BOOKS");
+
+// Retrieve the table data
+       BookLibraryRef.addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange(DataSnapshot dataSnapshot) {
+               for (DataSnapshot rowSnapshot : dataSnapshot.getChildren()) {
+                   // Identify the row
+                   String rowId = rowSnapshot.getKey();
+                   // Modify the specific element
+                   BookLibraryRef.child(rowId).child("numberOfCopies").setValue(numberOfCopies+"");
+               }
+           }
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
+               // Handle the error
+           }
+
+       });
+
+
+
+               }
 }
 
