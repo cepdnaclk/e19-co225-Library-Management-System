@@ -27,8 +27,7 @@ public class BOOK_SEARCH extends AppCompatActivity {
     DatabaseReference reference, requestBookRef;
 
     Button requestBtn, reservedBtn;
-    String name, id;
-    int copy;
+    String name, id, copy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,14 +81,14 @@ public class BOOK_SEARCH extends AppCompatActivity {
 
     private void displayBookData(DataSnapshot dataSnapshot) {
         String author = String.valueOf(dataSnapshot.child("author").getValue());
-        copy = dataSnapshot.child("numberOfCopies").getValue(Integer.class);
+        copy = String.valueOf(dataSnapshot.child("numberOfCopies").getValue());
         id = String.valueOf(dataSnapshot.child("id").getValue());
         name = String.valueOf(dataSnapshot.child("name").getValue());
         binding.tvAuthor.setText(author);
-        binding.tvCopies.setText(String.valueOf(copy));
+        binding.tvCopies.setText(copy);
         binding.tvId.setText(id);
         binding.tvName.setText(name);
-        if (copy>0){
+        if (Integer.parseInt(copy)>0){
             Log.i("displayBookData: ",String.valueOf(copy));
             reservedBtn = findViewById(R.id.ReservedBtn);
             reservedBtn.setVisibility(View.VISIBLE);
@@ -109,8 +108,7 @@ public class BOOK_SEARCH extends AppCompatActivity {
                 Intent intent = new Intent(BOOK_SEARCH.this, ReservationPart.class);
                 intent.putExtra("BookName",name);
                 intent.putExtra("BookID",id);
-                String number = copy + "";
-                intent.putExtra("noOfCopies",number);
+                intent.putExtra("noOfCopies",copy);
                 startActivity(intent);
             }
         });

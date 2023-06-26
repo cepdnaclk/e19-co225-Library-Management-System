@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -35,6 +36,7 @@ public class ReservationPart extends AppCompatActivity {
     Button cancelBtn, proceedBtn ;
     DatabaseReference ReservedBookRef, BookLibraryRef;
     String Date,Book_id;
+    String Book_name, Number;
     int numberOfCopies;
 
     @Override
@@ -91,7 +93,7 @@ public class ReservationPart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 insertDataToReservedBooks();
-                updateBookCount();
+                queryBookByName(Book_name);
                 openHomeActivity();
             }
         });
@@ -117,8 +119,10 @@ public class ReservationPart extends AppCompatActivity {
 
         ReservedBookRef = FirebaseDatabase.getInstance().getReference().child("ReservedBooks");
 
-        String Book_name = getIntent().getStringExtra("BookName");
+        Book_name = getIntent().getStringExtra("BookName");
         Book_id = getIntent().getStringExtra("BookID");
+        Number = getIntent().getStringExtra("noOfCopies");
+
 
         // Create a HashMap to hold the reserved book details
         HashMap<String, Object> reservedBookDetails = new HashMap<>();
@@ -132,38 +136,32 @@ public class ReservationPart extends AppCompatActivity {
         Toast.makeText(ReservationPart.this, "Reservation is success", Toast.LENGTH_LONG).show();
     }
 
-    public int updateBookCount(){
-        String Number = getIntent().getStringExtra("noOfCopies");
-        numberOfCopies = Integer.parseInt(Number);
-        numberOfCopies--;
-    }
+
 
 
    private void queryBookByName(String bookName) {
 
-       // Get a reference to the database
-       BookLibraryRef = FirebaseDatabase.getInstance().getReference().child("BOOKS");
+       numberOfCopies = Integer.valueOf(Number);
+// Get a reference to the database
+       BookLibraryRef = FirebaseDatabase.getInstance().getReference();
+       Query query = BookLibraryRef.child("BOOKS").orderByChild("name").equalTo(bookName);
 
-// Retrieve the table data
-       BookLibraryRef.addValueEventListener(new ValueEventListener() {
+       query.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(DataSnapshot dataSnapshot) {
-               for (DataSnapshot rowSnapshot : dataSnapshot.getChildren()) {
-                   // Identify the row
-                   String rowId = rowSnapshot.getKey();
-                   // Modify the specific element
-                   BookLibraryRef.child(rowId).child("numberOfCopies").setValue(numberOfCopies+"");
+               for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                   // Update the data here
+                   snapshot.getRef().child("numberOfCopies").setValue(--numberOfCopies);
                }
            }
+
            @Override
            public void onCancelled(DatabaseError databaseError) {
-               // Handle the error
+               // Handle any errors
+               Toast.makeText(ReservationPart.this, "Connection error! Try again!", Toast.LENGTH_SHORT).show();
            }
-
        });
 
-
-
-               }
+    }
 }
 
