@@ -67,8 +67,6 @@ public class RequestedBooksFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Intent intent = new Intent(getActivity(),ReservationPart.class);
-        startActivity(intent);
 
         return root;
     }

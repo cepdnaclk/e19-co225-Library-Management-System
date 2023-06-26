@@ -72,6 +72,13 @@ public class staffDetailsActivity extends AppCompatActivity {
                     // Add the row to the table
                     userTableLayout.addView(row);
                 }
+
+
+
+
+
+
+
             }
 
             @Override

@@ -48,6 +48,9 @@ public class BooksFragment extends Fragment {
         TextView buttonTile1 = binding.buttonTile1;
         TextView buttonTile2 = binding.buttonTile2;
         TextView buttonTile3 = binding.buttonTile3;
+        TextView buttonTile4 = binding.buttonTile4;
+        TextView buttonTile5 = binding.buttonTile5;
+
 
         //Check the user isAdmin
         FirebaseManager firebaseManager = FirebaseManager.getInstance();
@@ -57,8 +60,28 @@ public class BooksFragment extends Fragment {
                 boolean isAdminUser = task.getResult();
                 if (isAdminUser) {
                     buttonTile3.setVisibility(View.VISIBLE);
-                    Toast.makeText(getActivity(),"Admin abilities activated!",Toast.LENGTH_LONG).show();
+                    buttonTile4.setVisibility(View.VISIBLE);
+                    buttonTile5.setVisibility(View.VISIBLE);
+                    //Toast.makeText(getActivity(),"Admin abilities activated!",Toast.LENGTH_LONG).show();
                 } else {
+                    firebaseManager.isAdminUser().addOnCompleteListener(task1 -> {
+                        if (task.isSuccessful()) {
+                            boolean isStaff = task1.getResult();
+                            if (isStaff) {
+                                buttonTile4.setVisibility(View.VISIBLE);
+                                buttonTile5.setVisibility(View.VISIBLE);
+                                //Toast.makeText(getActivity(),"Staff abilities activated!",Toast.LENGTH_LONG).show();
+                            } else {
+
+                            }
+                        } else {
+                            // Error occurred while checking the user's admin status
+                            Exception exception = task.getException();
+                            Log.e("Firebase", "Exception occurred", exception);
+                            Toast.makeText(getActivity(),"Something Went Wrong!",Toast.LENGTH_LONG).show();
+
+                        }
+                    });
                 }
             } else {
                 // Error occurred while checking the user's admin status
@@ -85,6 +108,18 @@ public class BooksFragment extends Fragment {
         buttonTile3.setOnClickListener(v -> {
             // Start a new activity or perform an action for Tile 3
             Intent intent = new Intent(getActivity(), ADD_BOOK.class);
+            startActivity(intent);
+        });
+
+        buttonTile4.setOnClickListener(v -> {
+            // Start a new activity or perform an action for Tile 3
+            Intent intent = new Intent(getActivity(), STAFF_BOOK_UPDATE.class);
+            startActivity(intent);
+        });
+
+        buttonTile5.setOnClickListener(v -> {
+            // Start a new activity or perform an action for Tile 3
+            Intent intent = new Intent(getActivity(), STAFF_BOOK_RETURN_UPDATE.class);
             startActivity(intent);
         });
 

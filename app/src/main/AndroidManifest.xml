@@ -40,6 +40,9 @@
             android:name=".ui.home.staffDetailsActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.books.STAFF_BOOK_UPDATE"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.AcceptRequestActivity"
             android:exported="false" />
         <activity
