@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
+    android:backgroundTint="#FFFFFF"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -11,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@color/background"
+        android:background="@color/white"
         android:fontFamily="@font/roboto_condensed"
-        android:text="Staff Details"
+        android:text="Books"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -48,7 +49,7 @@
                     android:layout_gravity="start"
                     android:fontFamily="@font/roboto_condensed"
                     android:padding="16dp"
-                    android:text="Email"
+                    android:text="Author"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -58,5 +59,6 @@
 
         </TableLayout>
     </ScrollView>
+
 
 </LinearLayout>

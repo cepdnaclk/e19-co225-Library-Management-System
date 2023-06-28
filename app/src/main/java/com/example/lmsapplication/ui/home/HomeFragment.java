@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.lmsapplication.FirebaseManager;
 import com.example.lmsapplication.LoginAndRegster.ForgotPasswordActivity;
 import com.example.lmsapplication.R;
+import com.example.lmsapplication.ui.books.BookDetails;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
@@ -46,6 +47,7 @@ public class HomeFragment extends Fragment {
                 // Handle the received category value here
                 // Example: Log the category
                 customizeUI(root, category);
+
             }
         });
 
@@ -84,13 +86,12 @@ public class HomeFragment extends Fragment {
                 // Error occurred while checking the user's admin status
                 Exception exception = task.getException();
                 // Handle the exception
-                callback.onCategoryReceived("user");
             }
         });
     }
 
     // Define the callback interface
-    interface CategoryCallback {
+    public interface CategoryCallback {
         void onCategoryReceived(String category);
     }
 
@@ -100,31 +101,29 @@ public class HomeFragment extends Fragment {
         LinearLayout userDetailsLayout = root.findViewById(R.id.row2);
         LinearLayout transactionLayout = root.findViewById(R.id.row3);
 
-        TextView myBooks = root.findViewById(R.id.borrowedBooks);
-        TextView requestedBooks = root.findViewById(R.id.requestedBooks);
-        TextView userDetailsButton = root.findViewById(R.id.userDetailsButton);
-        TextView staffDetailsButton = root.findViewById(R.id.staffDetailsButton);
-        TextView acceptBookRequestButton = root.findViewById(R.id.acceptBookRequestButton);
-        TextView acceptBookReturnsButton = root.findViewById(R.id.acceptBookReturnsButton);
-
+        CardView myBooks = root.findViewById(R.id.borrowedBookCard);
+        CardView requestedBooks = root.findViewById(R.id.requestedBookCard);
+        CardView userDetailsButton = root.findViewById(R.id.userDetailsButton);
+        CardView staffDetailsButton = root.findViewById(R.id.staffDetailsCard);
+        CardView acceptBookRequestButton = root.findViewById(R.id.acceptBookRequestCard);
+        CardView acceptBookReturnsButton = root.findViewById(R.id.acceptBookReturnsCard);
+        CardView staffDetailsCard = root.findViewById((R.id.staffDetailsCard));
         
         //Check the user type
         
         
         // Customize UI based on user category
-        if (userCategory.equals("admin") || userCategory.equals("staff")) {
+        if (userCategory.equals("admin")){
+
+            userDetailsLayout.setVisibility(View.VISIBLE);
+            staffDetailsCard.setVisibility(View.VISIBLE);
+            transactionLayout.setVisibility(View.VISIBLE);
+        }else if ( userCategory.equals("staff")) {
             userDetailsLayout.setVisibility(View.VISIBLE);
             transactionLayout.setVisibility(View.VISIBLE);
+            staffDetailsCard.setVisibility(View.GONE);
 
-
-            if (userCategory.equals("admin")) {
-                acceptBookRequestButton.setVisibility(View.VISIBLE);
-                acceptBookReturnsButton.setVisibility(View.VISIBLE);
-            } else {
-                userDetailsLayout.setVisibility(View.GONE);
-                transactionLayout.setVisibility(View.GONE);
-            }
-        } else {
+        }else {
             userDetailsLayout.setVisibility(View.GONE);
             transactionLayout.setVisibility(View.GONE);
         }
@@ -170,7 +169,7 @@ public class HomeFragment extends Fragment {
         myBooks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getActivity(), BookDetails.class));
             }
         });
         requestedBooks.setOnClickListener(new View.OnClickListener() {

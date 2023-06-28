@@ -2,104 +2,124 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/teal_700">
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/userDetailsTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="User Details"
-        android:textSize="24sp"
-        android:textStyle="bold"
         android:layout_marginBottom="16dp"
-        android:textColor="@android:color/black"/>
+        android:text="User Details"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="18sp"
+        android:background="#DCDADA"
         android:padding="8dp"
-        android:textColor="@android:color/black"
-        />
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/emailTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="18sp"
+        android:background="#DCDADA"
         android:padding="8dp"
-        android:textColor="@android:color/black"
-        />
+        android:textColor="@color/black"
+        android:layout_marginBottom="10dp"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/dobTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="18sp"
+        android:background="#DCDADA"
         android:padding="8dp"
-        android:textColor="@android:color/black"
-        />
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/genderTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="18sp"
+        android:background="#DCDADA"
+        android:layout_marginBottom="10dp"
         android:padding="8dp"
-        android:textColor="@android:color/black"
-        />
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/mobileNoTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="18sp"
+        android:background="#DCDADA"
+        android:layout_marginBottom="10dp"
         android:padding="8dp"
-        android:textColor="@android:color/black"
-        />
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/addressTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="18sp"
+        android:background="#DCDADA"
+        android:layout_marginBottom="10dp"
         android:padding="8dp"
-        android:textColor="@android:color/black"
-        />
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/nicTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="18sp"
+        android:background="#DCDADA"
+        android:layout_marginBottom="10dp"
         android:padding="8dp"
-        android:textColor="@android:color/black"
-        />
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/makeStaffButton"
-        android:layout_width="160dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="16dp"
-        android:onClick="makeStaffButtonClicked"
-        android:text="Make Staff" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp">
 
-    <Button
-        android:id="@+id/deleteUserButton"
-        android:layout_width="160dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="16dp"
-        android:onClick="deleteUserButtonClicked"
-        android:text="Delete User" />
+        <Button
+            android:id="@+id/makeStaffButton"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+
+            android:onClick="makeStaffButtonClicked"
+            android:text="Make Staff" />
+
+        <Button
+            android:id="@+id/deleteUserButton"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:onClick="deleteUserButtonClicked"
+            android:text="Delete User" />
+
+    </LinearLayout>
 
 </LinearLayout>

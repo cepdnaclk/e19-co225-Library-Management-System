@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.books.BOOK_SEARCH"
-    android:orientation="vertical">
+    tools:context=".BOOK_SEARCH">
 
     <TextView
         android:id="@+id/textView2"
@@ -17,7 +16,7 @@
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:layout_gravity="center" />
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:id="@+id/etBookName"
@@ -27,7 +26,7 @@
         android:layout_marginTop="36dp"
         android:hint="BOOK NAME"
         android:paddingLeft="20dp"
-        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
         android:textColor="@color/black"
         android:background="@color/light_gray" />
 
@@ -37,7 +36,7 @@
         android:layout_height="60dp"
         android:layout_below="@+id/etBookName"
         android:layout_marginTop="16dp"
-        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
         android:backgroundTint="@color/teal_200"
         android:text="SEARCH" />
 
@@ -48,67 +47,12 @@
         android:background="@color/black"
         android:layout_marginTop="15dp" />
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_below="@+id/bookSearchBtn"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NAME: "
-            android:textColor="@color/black"
-            android:layout_marginStart="20dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:id="@+id/nameText"/>
-
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_toRightOf="@id/nameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/black"
-            android:layout_marginStart="5dp"
-            android:textSize="20sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/nameText"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ID: "
-            android:textColor="@color/black"
-            android:layout_marginStart="20dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:id="@+id/idText"/>
-
-        <TextView
-            android:id="@+id/tvId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/black"
-            android:layout_marginStart="5dp"
-            android:textSize="20sp"
-            android:layout_toRightOf="@id/idText"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/nameText"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="40dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -117,27 +61,25 @@
             android:textColor="@color/black"
             android:layout_marginStart="20dp"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:id="@+id/authorText"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:layout_toRightOf="@id/authorText"
             android:textColor="@color/black"
             android:layout_marginStart="5dp"
             android:textSize="20sp" />
-    </RelativeLayout>
 
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/authorText"
-        android:layout_marginTop="20dp">
+        android:layout_below="@+id/bookSearchBtn"
+        android:layout_marginTop="100dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -147,8 +89,7 @@
             android:layout_marginStart="20dp"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:ignore="HardcodedText"
-            android:id="@+id/copiesText"/>
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tvCopies"
@@ -157,30 +98,86 @@
             android:text=""
             android:textColor="@color/black"
             android:layout_marginStart="5dp"
-            android:textSize="20sp"
-            android:layout_toRightOf="@id/copiesText"/>
+            android:textSize="20sp" />
 
-    </RelativeLayout>
-    <RelativeLayout
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:orientation="horizontal"
+        android:layout_below="@+id/bookSearchBtn"
+        android:layout_marginTop="160dp">
 
-        <Button
-            android:id="@+id/ReservedBtn"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="Reserved Now!"
-            android:visibility="invisible"/>
+            android:text="ID: "
+            android:textColor="@color/black"
+            android:layout_marginStart="20dp"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/RequestBtn"
+        <TextView
+            android:id="@+id/tvId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="Request Now!"
-            android:visibility="invisible"/>
+            android:text=""
+            android:textColor="@color/black"
+            android:layout_marginStart="5dp"
+            android:textSize="20sp" />
 
-    </RelativeLayout>
-</LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/bookSearchBtn"
+        android:layout_marginTop="220dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NAME: "
+            android:textColor="@color/black"
+            android:layout_marginStart="20dp"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/black"
+            android:layout_marginStart="5dp"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/ReservedNow"
+        android:layout_width="127dp"
+        android:layout_height="53dp"
+        android:background="@drawable/reserved_request_btn"
+        android:text="Reserved Now!"
+        android:visibility="invisible"
+        app:layout_constraintCircleRadius="50dp"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="534dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/RequestNow"
+        android:layout_width="124dp"
+        android:layout_height="54dp"
+        android:background="@drawable/reserved_request_btn"
+        android:text="REQUEST NOW!"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="533dp"
+        tools:ignore="MissingConstraints" />
+
+
+</RelativeLayout>

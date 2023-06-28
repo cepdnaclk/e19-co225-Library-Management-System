@@ -1,4 +1,4 @@
-package com.example.lmsapplication.ui.home;
+package com.example.lmsapplication.ui.books;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -21,21 +21,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class UserDetails extends AppCompatActivity {
+public class BookDetails extends AppCompatActivity {
 
-    private static final String TAG = "UserDetailsActivity";
+    private static final String TAG = "BookDetailsActivity";
 
     private TableLayout userTableLayout;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_details);
+        setContentView(R.layout.activity_book_details);
 
         userTableLayout = findViewById(R.id.userTableLayout);
 
         // Get reference to the "Users" table in the Firebase Realtime Database
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("User");
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("BOOKS");
 
         // Read the user details from the database
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -45,10 +46,10 @@ public class UserDetails extends AppCompatActivity {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     // Get user details
                     String name = userSnapshot.child("name").getValue(String.class);
-                    String email = userSnapshot.child("email").getValue(String.class);
+                    String email = userSnapshot.child("author").getValue(String.class);
 
                     // Create a new row in the table for each user
-                    TableRow row = new TableRow(UserDetails.this);
+                    TableRow row = new TableRow(BookDetails.this);
                     row.setBackground(getDrawable(R.drawable.table_row_border));
 
                     // Create TextViews to display the user details
@@ -67,7 +68,7 @@ public class UserDetails extends AppCompatActivity {
                             String userId = userSnapshot.getKey();
 
                             // Open IndividualDetailsActivity and pass the user ID
-                            Intent intent = new Intent(UserDetails.this, IndividualDetailsActivityN.class);
+                            Intent intent = new Intent(BookDetails.this, IndividualBookDetails.class);
                             intent.putExtra("userId", userId);
                             startActivity(intent);
                         }

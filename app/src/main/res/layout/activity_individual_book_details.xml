@@ -7,14 +7,13 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/userDetailsTitle"
+        android:id="@+id/BookDetailsTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:allowUndo="true"
-        android:text="Staff Details"
+        android:text="Book Details"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -22,86 +21,48 @@
         android:id="@+id/nameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:background="#DCDADA"
         android:padding="8dp"
         android:textColor="@color/black"
+        android:layout_marginBottom="10dp"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/emailTextView"
+        android:id="@+id/authorTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:background="#DCDADA"
         android:padding="8dp"
         android:textColor="@color/black"
+        android:layout_marginBottom="10dp"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+
+    <TextView
+        android:id="@+id/numberOfCopiesTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#DCDADA"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="10dp"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/dobTextView"
+        android:id="@+id/idTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:background="#DCDADA"
         android:padding="8dp"
         android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/genderTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="#DCDADA"
-        android:padding="8dp"
-        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/mobileNoTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="#DCDADA"
-        android:padding="8dp"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/addressTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="#DCDADA"
-        android:padding="8dp"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/nicTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="#DCDADA"
-        android:padding="8dp"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/makeAdminButton"
-        android:layout_width="160dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="50dp"
-        android:onClick="makeAdminButtonClicked"
-        android:text="Make Admin" />
 
 
-</LinearLayout>
+    </LinearLayout>
