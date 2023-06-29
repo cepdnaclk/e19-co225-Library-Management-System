@@ -201,6 +201,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/divider_mobile"
                 android:layout_alignStart="@id/ic_address"
+                android:textColor="@color/black"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="20dp"
                 android:hint="Loading"
