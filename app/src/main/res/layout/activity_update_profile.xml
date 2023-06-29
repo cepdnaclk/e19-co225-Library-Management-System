@@ -65,6 +65,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:textColor="@color/black"
                         android:layout_toEndOf="@id/imageViewName"
                         android:padding="6dp"
                         android:text="Name" />
@@ -81,6 +82,7 @@
                         android:id="@+id/editTextUpdateName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:layout_below="@id/textView_update_profile_name"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
@@ -112,6 +114,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/imageViewDoB"
+                        android:textColor="@color/black"
                         android:padding="6dp"
                         android:text="Date of Birth (dd/mm/yyyy)" />
 
@@ -126,6 +129,7 @@
                     <EditText
                         android:id="@+id/editTextUpdateDOB"
                         android:layout_width="150dp"
+                        android:textColor="@color/black"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/textView_update_profile_dob"
                         android:layout_marginTop="10dp"
@@ -166,6 +170,7 @@
                         android:id="@+id/textView_update_profile_gender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:layout_toEndOf="@id/imageViewGender"
                         android:padding="6dp"
                         android:text="Gender" />
@@ -230,6 +235,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/imageViewMobile"
                         android:padding="6dp"
+                        android:textColor="@color/black"
                         android:text="Mobile" />
 
                     <View
@@ -248,6 +254,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_toEndOf="@id/imageViewMobile"
+                        android:textColor="@color/black"
                         android:background="@android:color/transparent"
                         android:inputType="phone"
                         android:padding="6dp"
@@ -274,6 +281,7 @@
                         android:id="@+id/textView_update_profile_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:layout_toEndOf="@id/imageViewAddress"
                         android:padding="6dp"
                         android:text="Address" />
@@ -293,6 +301,7 @@
                         android:layout_below="@id/textView_update_profile_address"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
+                        android:textColor="@color/black"
                         android:layout_toEndOf="@id/imageViewAddress"
                         android:background="@android:color/transparent"
                         android:inputType="text"

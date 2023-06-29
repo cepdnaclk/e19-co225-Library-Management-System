@@ -32,7 +32,8 @@
                 android:layout_marginTop="5dp"
                 android:hint="Welocme!"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
         </RelativeLayout>
 
@@ -57,6 +58,7 @@
                 android:layout_alignStart="@id/ic_profile"
                 android:layout_marginStart="50dp"
                 android:hint="Loading"
+                android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <View
@@ -84,6 +86,7 @@
                 android:layout_below="@id/divider_name"
                 android:layout_alignStart="@id/ic_email"
                 android:layout_marginStart="50dp"
+                android:textColor="@color/black"
                 android:layout_marginTop="20dp"
                 android:hint="Loading"
                 android:textSize="18sp" />
@@ -109,6 +112,7 @@
                 android:id="@+id/textView_show_dob"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:layout_below="@id/divider_email"
                 android:layout_alignStart="@id/ic_dob"
                 android:layout_marginStart="50dp"
@@ -138,6 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/divider_dob"
+                android:textColor="@color/black"
                 android:layout_alignStart="@id/ic_gender"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="20dp"
@@ -166,6 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/divider_gender"
+                android:textColor="@color/black"
                 android:layout_alignStart="@id/ic_mobile"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="20dp"
@@ -203,10 +209,25 @@
             <View
                 android:id="@+id/divider_address"
                 android:layout_width="match_parent"
+                android:textColor="@color/black"
                 android:layout_height="1dp"
                 android:layout_below="@id/textView_show_address"
                 android:layout_marginTop="20dp"
                 android:background="@color/cardview_dark_background" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="76dp"
+                android:layout_height="65dp"
+                android:layout_alignStart="@+id/ic_gender"
+                android:layout_alignEnd="@+id/divider_dob"
+                android:layout_marginStart="135dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="122dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </RelativeLayout>
 
@@ -230,16 +251,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:text="Sign Out" />
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="76dp"
-                android:layout_height="65dp"
-                android:layout_marginTop="16dp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
 
         </RelativeLayout>
 

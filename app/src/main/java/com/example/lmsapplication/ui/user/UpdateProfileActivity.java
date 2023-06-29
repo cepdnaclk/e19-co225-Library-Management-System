@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.lmsapplication.FirebaseManager;
 import com.example.lmsapplication.LoginAndRegster.LoginActivity;
+import com.example.lmsapplication.LoginAndRegster.RegisterActivity;
+import com.example.lmsapplication.MainActivity;
 import com.example.lmsapplication.R;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -166,5 +168,13 @@ public class UpdateProfileActivity extends AppCompatActivity {
         }
 
         return "";
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // Navigate back to the previous activity
+        Intent intent = new Intent(UpdateProfileActivity.this, UserFragment.class);
+        startActivity(intent);
+        finish();
     }
 }

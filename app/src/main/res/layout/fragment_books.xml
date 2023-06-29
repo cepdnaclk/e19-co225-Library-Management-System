@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".ui.books.BooksFragment">
 
     <LinearLayout
@@ -37,7 +38,7 @@
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold"
-            tools:visibility="gone" />
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/button_tile3"

@@ -64,7 +64,7 @@ public class BooksFragment extends Fragment {
                     buttonTile5.setVisibility(View.VISIBLE);
                     //Toast.makeText(getActivity(),"Admin abilities activated!",Toast.LENGTH_LONG).show();
                 } else {
-                    firebaseManager.isAdminUser().addOnCompleteListener(task1 -> {
+                    firebaseManager.isStaffUser().addOnCompleteListener(task1 -> {
                         if (task.isSuccessful()) {
                             boolean isStaff = task1.getResult();
                             if (isStaff) {
@@ -101,7 +101,7 @@ public class BooksFragment extends Fragment {
 
         buttonTile2.setOnClickListener(v -> {
             // Start a new activity or perform an action for Tile 2
-            Intent intent = new Intent(getActivity(), STAFF_BOOK_RETURN_UPDATE.class );
+            Intent intent = new Intent(getActivity(), BookDetails.class );
             startActivity(intent);
         });
 

@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.lmsapplication.FirebaseManager;
 import com.example.lmsapplication.LoginAndRegster.ForgotPasswordActivity;
 import com.example.lmsapplication.R;
+import com.example.lmsapplication.ui.books.BOOK_SEARCH;
 import com.example.lmsapplication.ui.books.BookDetails;
 
 import java.util.concurrent.CompletableFuture;
@@ -175,7 +176,7 @@ public class HomeFragment extends Fragment {
         requestedBooks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getActivity(), BOOK_SEARCH.class));
             }
         });
     }
