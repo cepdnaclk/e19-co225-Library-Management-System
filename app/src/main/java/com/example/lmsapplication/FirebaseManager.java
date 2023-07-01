@@ -27,9 +27,8 @@ public class FirebaseManager {
     public FirebaseUser getCurrentUser() {
         return auth.getCurrentUser();
 
-//        FirebaseManager firebaseManager = FirebaseManager.getInstance();
-//        String uid=firebaseManager.getCurrentUser().getEmail().toString();
-
+        /*FirebaseManager firebaseManager = FirebaseManager.getInstance();
+        String uid=firebaseManager.getCurrentUser().getEmail().toString();*/
     }
 
     public static synchronized FirebaseManager getInstance() {
@@ -84,7 +83,7 @@ public class FirebaseManager {
 
     public Task<Boolean> isStaffUser() {
         FirebaseUser currentUser = getCurrentUser();
-        DatabaseReference adminRef = getDataRef("Admin");
+        DatabaseReference adminRef = getDataRef("Staff");
 
         if (currentUser != null) {
             String email = currentUser.getEmail();

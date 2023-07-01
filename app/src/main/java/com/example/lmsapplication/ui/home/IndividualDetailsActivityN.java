@@ -45,7 +45,7 @@ public class IndividualDetailsActivityN extends AppCompatActivity {
         deleteUserButton = findViewById(R.id.deleteUserButton);
 
         // Get reference to the user in the Firebase Realtime Database
-        userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        userRef = FirebaseDatabase.getInstance().getReference().child("User").child(userId);
         staffRef = FirebaseDatabase.getInstance().getReference().child("Staff");
 
         // Read the user details from the database
@@ -73,7 +73,7 @@ public class IndividualDetailsActivityN extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle database error
+
             }
         });
 
@@ -131,7 +131,7 @@ public class IndividualDetailsActivityN extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle database error
+
             }
         });
     }

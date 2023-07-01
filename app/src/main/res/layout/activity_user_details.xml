@@ -2,24 +2,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
+    android:backgroundTint="#FFFFFF"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/teal_700">
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/userDetailsTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="User Details"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        android:background="@color/white"
         android:fontFamily="@font/roboto_condensed"
-        android:textColor="@android:color/black"
-        android:layout_marginBottom="16dp" />
+        android:text="User Details"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <TableLayout
             android:id="@+id/userTableLayout"
@@ -30,28 +34,31 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/darker_gray">
+                android:background="#3D3D3E">
 
                 <TextView
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/roboto_condensed"
+                    android:padding="16dp"
                     android:text="Name"
-                    android:textStyle="bold"
-                    android:padding="16dp"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/white"
                     android:textSize="18sp"
-                    android:layout_gravity="left"
-                    android:fontFamily="@font/roboto_condensed" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:text="Email"
-                    android:textStyle="bold"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/roboto_condensed"
                     android:padding="16dp"
-                    android:textColor="@android:color/black"
+                    android:text="Email"
+                    android:textColor="@android:color/white"
                     android:textSize="18sp"
-                    android:layout_gravity="left"
-                    android:fontFamily="@font/roboto_condensed" />
+                    android:textStyle="bold" />
             </TableRow>
+
+            <!-- Add more TableRow elements for additional rows in the table -->
 
         </TableLayout>
     </ScrollView>
+
 
 </LinearLayout>

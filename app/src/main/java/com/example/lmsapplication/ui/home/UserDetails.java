@@ -35,7 +35,7 @@ public class UserDetails extends AppCompatActivity {
         userTableLayout = findViewById(R.id.userTableLayout);
 
         // Get reference to the "Users" table in the Firebase Realtime Database
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("User");
 
         // Read the user details from the database
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {

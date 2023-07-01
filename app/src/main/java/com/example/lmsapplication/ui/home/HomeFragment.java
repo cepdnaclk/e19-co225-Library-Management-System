@@ -2,27 +2,33 @@ package com.example.lmsapplication.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 //import com.example.lmsapplication.AcceptReturnsActivity;
+import com.example.lmsapplication.FirebaseManager;
+import com.example.lmsapplication.LoginAndRegster.ForgotPasswordActivity;
 import com.example.lmsapplication.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.lmsapplication.ui.books.BOOK_SEARCH;
+import com.example.lmsapplication.ui.books.BookDetails;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -31,54 +37,96 @@ public class HomeFragment extends Fragment {
         // Initialize the ViewModel
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        final TextView textView = root.findViewById(R.id.text_home);
+        /*final TextView textView = root.findViewById(R.id.text_home);
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
+*/
         // Customize UI based on user category (admin, staff, user)
-        String userCategory = getCurrentUserCategory();
-        customizeUI(root, userCategory);
+
+        getCurrentUserCategory(new CategoryCallback() {
+            @Override
+            public void onCategoryReceived(String category) {
+                // Handle the received category value here
+                // Example: Log the category
+                customizeUI(root, category);
+
+            }
+        });
+
+
+
 
         return root;
     }
 
-    private String getCurrentUserCategory() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            // Implement your logic to retrieve the current user's category
-            // Return the user category as a string (e.g., "admin", "staff", "user")
-            // This is just a placeholder method, replace it with your own implementation
-            return "admin";
-        } else {
-            return "user";
-        }
+    private void getCurrentUserCategory(final CategoryCallback callback) {
+        FirebaseManager firebaseManager = FirebaseManager.getInstance();
+
+        firebaseManager.isAdminUser().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                boolean isAdminUser = task.getResult();
+                if (isAdminUser) {
+                    callback.onCategoryReceived("admin");
+                } else {
+                    firebaseManager.isStaffUser().addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()) {
+                            boolean isStaff = task1.getResult();
+                            if (isStaff) {
+                                callback.onCategoryReceived("staff");
+                            } else {
+                                callback.onCategoryReceived("user");
+                            }
+                        } else {
+                            // Error occurred while checking the user's staff status
+                            Exception exception = task1.getException();
+                            // Handle the exception
+                            callback.onCategoryReceived("user");
+                        }
+                    });
+                }
+            } else {
+                // Error occurred while checking the user's admin status
+                Exception exception = task.getException();
+                // Handle the exception
+            }
+        });
     }
 
+    // Define the callback interface
+    public interface CategoryCallback {
+        void onCategoryReceived(String category);
+    }
+
+
+
     private void customizeUI(View root, String userCategory) {
-        LinearLayout userDetailsLayout = root.findViewById(R.id.userDetailsLayout);
-        Button userDetailsButton = root.findViewById(R.id.userDetailsButton);
-        Button staffDetailsButton = root.findViewById(R.id.staffDetailsButton);
-        Button acceptBookRequestButton = root.findViewById(R.id.acceptBookRequestButton);
-        Button acceptBookReturnsButton = root.findViewById(R.id.acceptBookReturnsButton);
+        LinearLayout userDetailsLayout = root.findViewById(R.id.row2);
+        LinearLayout transactionLayout = root.findViewById(R.id.row3);
 
+        CardView myBooks = root.findViewById(R.id.borrowedBookCard);
+        CardView requestedBooks = root.findViewById(R.id.requestedBookCard);
+        CardView userDetailsButton = root.findViewById(R.id.userDetailsButton);
+        CardView staffDetailsButton = root.findViewById(R.id.staffDetailsCard);
+        CardView acceptBookRequestButton = root.findViewById(R.id.acceptBookRequestCard);
+        CardView acceptBookReturnsButton = root.findViewById(R.id.acceptBookReturnsCard);
+        CardView staffDetailsCard = root.findViewById((R.id.staffDetailsCard));
+        
+        //Check the user type
+        
+        
         // Customize UI based on user category
-        if (userCategory.equals("admin") || userCategory.equals("staff")) {
-            userDetailsLayout.setVisibility(View.VISIBLE);
-            userDetailsButton.setVisibility(View.VISIBLE);
-            staffDetailsButton.setVisibility(View.VISIBLE);
+        if (userCategory.equals("admin")){
 
-            if (userCategory.equals("admin")) {
-                acceptBookRequestButton.setVisibility(View.VISIBLE);
-                acceptBookReturnsButton.setVisibility(View.VISIBLE);
-            } else {
-                acceptBookRequestButton.setVisibility(View.GONE);
-                acceptBookReturnsButton.setVisibility(View.GONE);
-            }
-        } else {
+            userDetailsLayout.setVisibility(View.VISIBLE);
+            staffDetailsCard.setVisibility(View.VISIBLE);
+            transactionLayout.setVisibility(View.VISIBLE);
+        }else if ( userCategory.equals("staff")) {
+            userDetailsLayout.setVisibility(View.VISIBLE);
+            transactionLayout.setVisibility(View.VISIBLE);
+            staffDetailsCard.setVisibility(View.GONE);
+
+        }else {
             userDetailsLayout.setVisibility(View.GONE);
-            userDetailsButton.setVisibility(View.GONE);
-            staffDetailsButton.setVisibility(View.GONE);
-            acceptBookRequestButton.setVisibility(View.GONE);
-            acceptBookReturnsButton.setVisibility(View.GONE);
+            transactionLayout.setVisibility(View.GONE);
         }
 
         // Handle user details button click event
@@ -116,6 +164,19 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 // Open accept book returns activity
                 startActivity(new Intent(getActivity(), AcceptReturnsActivity.class));
+            }
+        });
+
+        myBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), BookDetails.class));
+            }
+        });
+        requestedBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), BOOK_SEARCH.class));
             }
         });
     }

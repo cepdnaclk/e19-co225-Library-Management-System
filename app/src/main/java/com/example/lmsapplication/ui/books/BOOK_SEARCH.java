@@ -35,12 +35,31 @@ public class BOOK_SEARCH extends AppCompatActivity {
         binding = ActivityBookSearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.bookSearchBtn.setOnClickListener(v -> {
-            String bookName = binding.etBookName.getText().toString();
+            String bookName = binding.etBookName.getText().toString().trim();
+
+            if (!bookName.isEmpty()) {
+                String[] words = bookName.split(" ");
+                StringBuilder convertedBookName = new StringBuilder();
+
+                for (String word : words) {
+                    if (!word.isEmpty()) {
+                        String firstLetter = word.substring(0, 1).toUpperCase();
+                        String remainingLetters = word.substring(1).toLowerCase();
+                        String convertedWord = firstLetter + remainingLetters;
+
+                        convertedBookName.append(convertedWord).append(" ");
+                    }
+                }
+
+                bookName = convertedBookName.toString().trim();
+            }
+
             if (!bookName.isEmpty()) {
                 readData(bookName);
             } else {
                 Toast.makeText(BOOK_SEARCH.this, "Please Enter a Book Name", Toast.LENGTH_SHORT).show();
             }
+
         });
     }
 
@@ -129,6 +148,8 @@ public class BOOK_SEARCH extends AppCompatActivity {
                 requestBookDetails.put("Mail", userEmail);
 
                 requestBookRef.child(userEmail).setValue(requestBookDetails);
+                Toast.makeText(BOOK_SEARCH.this, "Request successful", Toast.LENGTH_LONG).show();
+
 
             }
         });

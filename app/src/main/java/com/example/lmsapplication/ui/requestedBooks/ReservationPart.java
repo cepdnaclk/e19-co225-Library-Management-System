@@ -17,6 +17,8 @@ import com.example.lmsapplication.HomeActivity;
 import com.example.lmsapplication.MainActivity;
 import com.example.lmsapplication.R;
 import com.example.lmsapplication.ui.books.BOOK_SEARCH;
+import com.example.lmsapplication.ui.home.HomeFragment;
+import com.example.lmsapplication.ui.home.HomeViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -94,7 +96,7 @@ public class ReservationPart extends AppCompatActivity {
             public void onClick(View v) {
                 insertDataToReservedBooks();
                 queryBookByName(Book_name);
-                openHomeActivity();
+                backToSearch();
             }
         });
         cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -104,12 +106,8 @@ public class ReservationPart extends AppCompatActivity {
             }
         });
     }
-    private void openHomeActivity(){
-        Intent newIntent = new Intent(ReservationPart.this, MainActivity.class);
-        startActivity(newIntent);
-    }
     private void backToSearch(){
-        Intent newIntent = new Intent(ReservationPart.this, HomeActivity.class);
+        Intent newIntent = new Intent(ReservationPart.this, BOOK_SEARCH.class);
         startActivity(newIntent);
     }
     private void insertDataToReservedBooks() {
@@ -139,28 +137,28 @@ public class ReservationPart extends AppCompatActivity {
 
 
 
-   private void queryBookByName(String bookName) {
+    private void queryBookByName(String bookName) {
 
-       numberOfCopies = Integer.valueOf(Number);
+        numberOfCopies = Integer.valueOf(Number);
 // Get a reference to the database
-       BookLibraryRef = FirebaseDatabase.getInstance().getReference();
-       Query query = BookLibraryRef.child("BOOKS").orderByChild("name").equalTo(bookName);
+        BookLibraryRef = FirebaseDatabase.getInstance().getReference();
+        Query query = BookLibraryRef.child("BOOKS").orderByChild("name").equalTo(bookName);
 
-       query.addListenerForSingleValueEvent(new ValueEventListener() {
-           @Override
-           public void onDataChange(DataSnapshot dataSnapshot) {
-               for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                   // Update the data here
-                   snapshot.getRef().child("numberOfCopies").setValue(--numberOfCopies);
-               }
-           }
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Update the data here
+                    snapshot.getRef().child("numberOfCopies").setValue(--numberOfCopies);
+                }
+            }
 
-           @Override
-           public void onCancelled(DatabaseError databaseError) {
-               // Handle any errors
-               Toast.makeText(ReservationPart.this, "Connection error! Try again!", Toast.LENGTH_SHORT).show();
-           }
-       });
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle any errors
+                Toast.makeText(ReservationPart.this, "Connection error! Try again!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }
