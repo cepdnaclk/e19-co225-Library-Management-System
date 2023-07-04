@@ -73,7 +73,7 @@ public class IndividualDetailsActivityN extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle database error
+
             }
         });
 
@@ -131,7 +131,7 @@ public class IndividualDetailsActivityN extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle database error
+
             }
         });
     }

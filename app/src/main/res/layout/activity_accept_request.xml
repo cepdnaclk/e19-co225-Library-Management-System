@@ -1,11 +1,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/light_gray"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/userDetailsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/roboto_condensed"
+        android:text="Requested Books"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/requestedBooksListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fontFamily="@font/roboto_condensed"
+        android:padding="16dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />/>
+
+
 
 </LinearLayout>

@@ -39,16 +39,17 @@ public class AcceptReturnsActivity extends AppCompatActivity {
         borrowedBooksListView.setAdapter(adapter);
 
         // Retrieve borrowed books from Firebase and populate the list
-        FirebaseDatabase.getInstance().getReference("BorrowedBooks")
+        FirebaseDatabase.getInstance().getReference("BORROWED_BOOKS")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         borrowedBooksList.clear();
                         bookIdsList.clear();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            String bookId = snapshot.child("bookID").getValue(String.class);
-                            String userId = snapshot.child("userID").getValue(String.class);
-                            String bookDetails = "BookId: " + bookId + ", UserId: " + userId;
+                            String bookId = snapshot.child("Book Name").getValue(String.class);
+                            String userId = snapshot.child("Member ID").getValue(String.class);
+                            String date = snapshot.child("Timestamp").getValue(String.class);
+                            String bookDetails = "\nBook Name : " + bookId + "\nUser ID : " + userId + "\nDue Date : " + date +"\n";
                             borrowedBooksList.add(bookDetails);
                             bookIdsList.add(bookId);
                         }
@@ -57,7 +58,7 @@ public class AcceptReturnsActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(DatabaseError error) {
-                        // Handle error
+
                     }
                 });
 
@@ -83,7 +84,7 @@ public class AcceptReturnsActivity extends AppCompatActivity {
         final String bookId = bookIdsList.get(position);
 
         // Delete the book from the BorrowedBooks table
-        FirebaseDatabase.getInstance().getReference("BorrowedBooks").child(bookId)
+        FirebaseDatabase.getInstance().getReference("BORROWED_BOOKS").child(bookId)
                 .removeValue(new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -93,7 +94,7 @@ public class AcceptReturnsActivity extends AppCompatActivity {
 
                             Toast.makeText(AcceptReturnsActivity.this, "Accepted Return for BookId: " + bookId, Toast.LENGTH_SHORT).show();
                         } else {
-                            // Handle error
+
                         }
                     }
                 });
@@ -115,7 +116,7 @@ public class AcceptReturnsActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        // Handle error
+
                     }
                 });
     }

@@ -39,16 +39,18 @@ public class AcceptRequestActivity extends AppCompatActivity {
         requestedBooksListView.setAdapter(adapter);
 
         // Retrieve requested books from Firebase and populate the list
-        FirebaseDatabase.getInstance().getReference("RequestedBooks")
+        FirebaseDatabase.getInstance().getReference("ReservedBooks")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         requestedBooksList.clear();
                         bookIdsList.clear();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            String bookId = snapshot.child("bookID").getValue(String.class);
-                            String userId = snapshot.child("userID").getValue(String.class);
-                            String bookDetails = "BookId: " + bookId + ", UserId: " + userId;
+                            String bookId = snapshot.child("Book-Name").getValue(String.class);
+                            String userId = snapshot.child("User-ID").getValue(String.class);
+                            String reserveDate = snapshot.child("Reserving Date").getValue(String.class);
+
+                            String bookDetails =  "\nBook Name : " + bookId + "\nUser ID : " + userId + "\nReserve Date : " + reserveDate +"\n";
                             requestedBooksList.add(bookDetails);
                             bookIdsList.add(bookId);
                         }
@@ -57,7 +59,7 @@ public class AcceptRequestActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(DatabaseError error) {
-                        // Handle error
+
                     }
                 });
 
@@ -87,45 +89,32 @@ public class AcceptRequestActivity extends AppCompatActivity {
         String bookId = bookIdsList.get(position);
 
         // Move the book details to the BorrowedBooks table and update AvailableBooks
-        FirebaseDatabase.getInstance().getReference("RequestedBooks").child(bookId)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("ReservedBooks").child(bookId)
+                .removeValue(new DatabaseReference.CompletionListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // Retrieve the book details
-                        String bookId = dataSnapshot.child("bookID").getValue(String.class);
-                        String userId = dataSnapshot.child("userID").getValue(String.class);
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        if (databaseError == null) {
+                            Toast.makeText(AcceptRequestActivity.this, "Accepted Request for BookId: " + bookId, Toast.LENGTH_SHORT).show();
+                        } else {
 
-                        // Save the book details in the BorrowedBooks table
-                        FirebaseDatabase.getInstance().getReference("BorrowedBooks").push().setValue(dataSnapshot.getValue());
-
-                        // Update the AvailableBooks table
-                        updateAvailableBooks(bookId);
-
-                        // Remove the book from the RequestedBooks table
-                        dataSnapshot.getRef().removeValue();
-
-                        Toast.makeText(AcceptRequestActivity.this, "Accepted Request for BookId: " + bookId, Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        // Handle error
+                        }
                     }
                 });
     }
+
 
     private void declineRequest(int position) {
         String bookId = bookIdsList.get(position);
 
         // Remove the book details from the RequestedBooks table
-        FirebaseDatabase.getInstance().getReference("RequestedBooks").child(bookId)
+        FirebaseDatabase.getInstance().getReference("ReservedBooks").child(bookId)
                 .removeValue(new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         if (databaseError == null) {
                             Toast.makeText(AcceptRequestActivity.this, "Declined Request for BookId: " + bookId, Toast.LENGTH_SHORT).show();
                         } else {
-                            // Handle error
+
                         }
                     }
                 });
@@ -147,7 +136,7 @@ public class AcceptRequestActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        // Handle error
+
                     }
                 });
     }

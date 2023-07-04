@@ -307,7 +307,7 @@
                         android:layout_below="@+id/sportImage"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:text="Returned Books"
+                        android:text="Accept Returns"
                         android:textAlignment="center"
                         android:textColor="@color/lavender"
                         android:textSize="20sp" />

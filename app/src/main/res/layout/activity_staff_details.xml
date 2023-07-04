@@ -54,7 +54,7 @@
                     android:textStyle="bold" />
             </TableRow>
 
-            <!-- Add more TableRow elements for additional rows in the table -->
+
 
         </TableLayout>
     </ScrollView>
