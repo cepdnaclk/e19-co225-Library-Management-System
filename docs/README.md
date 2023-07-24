@@ -39,6 +39,6 @@ Library staff members with appropriate administrative privileges can effortlessl
 
 # Links
 
-[Project Repository](https://github.com/cepdnaclk/e19-co225-Library-Management-System.git)  
-[Wiki Page](https://github.com/cepdnaclk/e19-co225-Library-Management-System/wiki)
-[Project Page](https://cepdnaclk.github.io/e19-co225-Library-Management-System/)
+ - [Project Repository](https://github.com/cepdnaclk/e19-co225-Library-Management-System.git)
+ - [Wiki Page](https://github.com/cepdnaclk/e19-co225-Library-Management-System/wiki)
+ - [Project Page](https://cepdnaclk.github.io/e19-co225-Library-Management-System/)
