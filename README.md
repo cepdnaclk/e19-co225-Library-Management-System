@@ -12,7 +12,7 @@
 * E/19/371 SHANTOSH M. MR
 * E/19/091 DISSANAYAKE P.A.M. MR
 
-## Introduction
+# Introduction
 
 The library management system provides a user-friendly interface for both library staff and members. It offers a catalog where members can search for books, view their availability, and reserve copies if necessary. For available books, the system displays detailed information such as the number of copies available and their location within the library. In case all copies are currently lent out.
 
@@ -41,3 +41,4 @@ Library staff members with appropriate administrative privileges can effortlessl
 
 [Project Repository](https://github.com/cepdnaclk/e19-co225-Library-Management-System.git)  
 [Wiki Page](https://github.com/cepdnaclk/e19-co225-Library-Management-System/wiki)
+[Project Page](https://cepdnaclk.github.io/e19-co225-Library-Management-System/)
